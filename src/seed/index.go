@@ -5,12 +5,16 @@ import (
 	"fmt"
 	"log"
 	"os"
+	"time"
 
 	"gameTheory.com/m/src/models"
 )
 
 func SeedData() {
 	tables := []string{"opinions"}
+	seedFunc := map[string]interface{}{
+		"opinions": SeedOpinions,
+	}
 
 	for i := 0; i < len(tables); i++ {
 		tableName := tables[i]
@@ -20,24 +24,33 @@ func SeedData() {
 		if err != nil {
 			log.Fatal("Failed to read JSON file:", err)
 		}
+		seedFunc[tableName].(func(interface{}))(data)
+	}
+}
 
-		var SeedData []interface{}
+func SeedOpinions(data interface{}) {
+	type Values struct {
+		Description string `json:"description"`
+		IsActive    bool   `json:"is_active"`
+	}
 
-		if err := json.Unmarshal(data, &SeedData); err != nil {
-			log.Fatal("Failed to unmarshal JSON data", err)
-		}
+	type Opinion struct {
+		Values Values `json:"values"`
+	}
 
-		models.Database.Exec(fmt.Sprintf("DELETE FROM %s", tableName))
+	var opinions []Opinion
+	if err := json.Unmarshal(data.([]byte), &opinions); err != nil {
+		log.Fatal("Failed to unmarshal JSON data", err)
+	}
 
-		for i := 0; i < len(SeedData); i++ {
-			if val, ok := SeedData[i].(map[string]interface{}); ok {
-				if vl, ok := val["values"].(map[string]interface{}); ok {
-					if des := vl["description"].(string); ok {
+	models.Database.Exec("DELETE FROM opinions")
 
-						fmt.Println(des)
-					}
-				}
-			}
-		}
+	for i := 0; i < len(opinions); i++ {
+		models.Database.Create(&models.Opinion{
+			Description: opinions[i].Values.Description,
+			IsActive:    opinions[i].Values.IsActive,
+			CreatedAt:   time.Now(),
+			UpdatedAt:   time.Now(),
+		})
 	}
 }
