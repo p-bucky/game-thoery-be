@@ -2,6 +2,7 @@
   {
     "id": 1,
     "values": {
+      "opinion_id": "opinion_1",
       "description": "Should physician-assisted suicide be legalized?",
       "is_active": true
     }
@@ -9,6 +10,7 @@
   {
     "id": 2,
     "values": {
+      "opinion_id": "opinion_2",
       "description": "Is the death penalty an effective deterrent to crime?",
       "is_active": true
     }
@@ -16,6 +18,7 @@
   {
     "id": 3,
     "values": {
+      "opinion_id": "opinion_3",
       "description": "Should genetically modified organisms (GMOs) be banned?",
       "is_active": true
     }
@@ -23,6 +26,7 @@
   {
     "id": 4,
     "values": {
+      "opinion_id": "opinion_4",
       "description": "Is universal basic income a feasible solution to poverty?",
       "is_active": true
     }
@@ -30,6 +34,7 @@
   {
     "id": 5,
     "values": {
+      "opinion_id": "opinion_5",
       "description": "Should the use of animals in scientific research be abolished?",
       "is_active": true
     }
@@ -37,6 +42,7 @@
   {
     "id": 6,
     "values": {
+      "opinion_id": "opinion_6",
       "description": "Is censorship justified in certain circumstances?",
       "is_active": true
     }
@@ -44,6 +50,7 @@
   {
     "id": 7,
     "values": {
+      "opinion_id": "opinion_7",
       "description": "Should the use of nuclear energy be expanded or phased out?",
       "is_active": true
     }
@@ -51,6 +58,7 @@
   {
     "id": 8,
     "values": {
+      "opinion_id": "opinion_8",
       "description": "Is social media doing more harm than good to society?",
       "is_active": true
     }
@@ -58,6 +66,7 @@
   {
     "id": 9,
     "values": {
+      "opinion_id": "opinion_9",
       "description": "Should recreational drug use be decriminalized?",
       "is_active": true
     }
@@ -65,6 +74,7 @@
   {
     "id": 10,
     "values": {
+      "opinion_id": "opinion_10",
       "description": "Is affirmative action an effective tool for promoting diversity and equity?",
       "is_active": true
     }
