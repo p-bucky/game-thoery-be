@@ -11,11 +11,22 @@ CREATE TABLE IF NOT EXISTS rooms (
 	id bigserial PRIMARY KEY,
     person_id uuid NOT NULL,
     opinion_id varchar(40),
-    code varchar(100),
+    code varchar(100) UNIQUE,
     player_one uuid DEFAULT NULL,
     player_two uuid DEFAULT NULL,
     is_active boolean NOT NULL DEFAULT TRUE,
 	created_at timestamp NOT NULL DEFAULT now(),
 	updated_at timestamp NOT NULL DEFAULT now(),
 	FOREIGN KEY (opinion_id) REFERENCES opinions (opinion_id)
+);
+
+CREATE TABLE IF NOT EXISTS game (
+    id bigserial PRIMARY KEY,
+    room_code varchar(100),
+    grid JSON,
+    grid_length smallint,
+    is_active boolean NOT NULL DEFAULT TRUE,
+    created_at timestamp NOT NULL DEFAULT now(),
+    updated_at timestamp NOT NULL DEFAULT now(),
+    FOREIGN KEY (room_code) REFERENCES rooms (code)
 );

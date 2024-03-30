@@ -45,8 +45,22 @@ exports.joinRoom = async (req, resp) => {
       .toString();
 
     const result = await pg_client.query(query);
+
+    const query2 = knex("game")
+      .insert({
+        room_code: req.body.code,
+        grid_length: 10,
+        is_active: true,
+        created_at: new Date(),
+        updated_at: new Date(),
+      })
+      .returning("*")
+      .toString();
+
+    await pg_client.query(query2);
     resp.status(200).json(result.rows[0]);
   } catch (err) {
+    console.log(err);
     resp.json({ message: "Something went wrong", status: 500 }).status(500);
   }
 };
