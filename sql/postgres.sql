@@ -1,0 +1,21 @@
+CREATE TABLE IF NOT EXISTS opinions (
+	id bigserial PRIMARY KEY,
+    opinion_id varchar(40) UNIQUE,
+    description varchar(1000),
+    is_active boolean NOT NULL DEFAULT TRUE,
+	created_at timestamp NOT NULL DEFAULT now(),
+	updated_at timestamp NOT NULL DEFAULT now()
+);
+
+CREATE TABLE IF NOT EXISTS rooms (
+	id bigserial PRIMARY KEY,
+    person_id uuid NOT NULL,
+    opinion_id varchar(40),
+    code varchar(100),
+    player_one uuid DEFAULT NULL,
+    player_two uuid DEFAULT NULL,
+    is_active boolean NOT NULL DEFAULT TRUE,
+	created_at timestamp NOT NULL DEFAULT now(),
+	updated_at timestamp NOT NULL DEFAULT now(),
+	FOREIGN KEY (opinion_id) REFERENCES opinions (opinion_id)
+);
