@@ -7,13 +7,14 @@ exports.createRoom = async (req, resp) => {
     let personId = null;
     let opinionId = null;
     req.body = JSON.parse(req.body);
-    personId = req.body.person_id ?? "8199a146-38a3-4a61-9048-2c94f67d8f9e";
-    opinionId = req.body.opinion_id ?? "opinion_1";
+    personId = req.session.authentication.person_id;
+    opinionId = req.body.opinion_id;
 
     const query = knex("rooms")
       .insert({
         person_id: personId,
         opinion_id: opinionId,
+        player_one: personId,
         code: generateHex(),
         created_at: new Date(),
         updated_at: new Date(),
@@ -30,14 +31,11 @@ exports.createRoom = async (req, resp) => {
 
 exports.joinRoom = async (req, resp) => {
   try {
-    let playerOne = null;
     let playerTwo = null;
     playerTwo = req.body.playerTwo;
-    playerOne = req.body.playerOne;
 
     const query = knex("rooms")
       .update({
-        player_one: playerOne,
         player_two: playerTwo,
       })
       .where("code", req.body.code)
