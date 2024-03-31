@@ -6,7 +6,7 @@ exports.createRoom = async (req, resp) => {
   try {
     let personId = null;
     let opinionId = null;
-
+    req.body = JSON.parse(req.body);
     personId = req.body.person_id ?? "8199a146-38a3-4a61-9048-2c94f67d8f9e";
     opinionId = req.body.opinion_id ?? "opinion_1";
 
@@ -22,7 +22,7 @@ exports.createRoom = async (req, resp) => {
       .toString();
 
     const result = await pg_client.query(query);
-    resp.status(200).json(result.rows[0]);
+    resp.status(200).json({ data: result.rows[0], status: 200 });
   } catch (err) {
     resp.json({ message: "Something went wrong", status: 500 }).status(500);
   }

@@ -35,26 +35,27 @@ block content
                     button.nes-btn.is-success="Coprate"
         
         dialog(class="nes-dialog is-rounded" id="create-room-dialog")
-            form(method="dialog")
-                p.title="Create Room"
-                p="Share the generated code with your friend to play together."
-                label(for="default_select")="Select the opinion"
-                div.nes-select
-                    select(required id="default_select")
-                        option(value="" disabled selected hidden)="Three"
-                        option(value="0")="One"
-                        option(value="1")="Two"
+            div(id="id_create_room_form")
+                form(method="dialog")
+                    p.title="Create Room"
+                    label(for="opinion_select")="Select the opinion"
+                    div.nes-select
+                        select(required id="opinion_select")
+                            each opinion in opinions
+                                option(value=opinion.opinion_id)=opinion.description
 
-            menu.dialog-menu.modal_menu
-                button(class="nes-btn me-3" onclick="document.getElementById('create-room-dialog').close();")="Cancel"
-                button.nes-btn.is-primary="Create"   
-            
-            div
-                div.nes-container.is-rounded.is-dark
-                    p="345443"
                 menu.dialog-menu.modal_menu
-                    button(class="nes-btn me-3" onclick="document.getElementById('create-room-dialog').close();")="Cancel"
-                    button.nes-btn.is-primary="Join" 
+                    button(class="nes-btn me-3" onclick="document.getElementById('create-room-dialog').close(); resetCreateRoomForm();")="Cancel"
+                    button(class="nes-btn is-primary" onclick="createRoomApi()")="Create"   
+                
+            div(id="id_create_room_success" class="d-none")
+                p.title="Room Created"
+                p="Share the generated code with your friend to play together."
+                    div.nes-container.is-rounded.is-dark
+                        p(id="id_room_code" style="letter-spacing:2px")
+                    menu.dialog-menu.modal_menu
+                        button(class="nes-btn me-3" onclick="document.getElementById('create-room-dialog').close(); resetCreateRoomForm();")="Cancel"
+                        button.nes-btn.is-primary="Join" 
 
 
         dialog(class="nes-dialog is-rounded" id="join-room-dialog")
@@ -64,3 +65,31 @@ block content
             menu.dialog-menu.modal_menu
                 button(class="nes-btn me-3" onclick="document.getElementById('join-room-dialog').close();")="Cancel"
                 button.nes-btn.is-primary="Join"   
+
+    script.
+        const createRoomApi = async () => {
+            const opinionId = document.getElementById("opinion_select").selectedOptions[0].value
+            let result = null;
+            result = await fetch(
+            `/app/room`,
+                {
+                    method: "POST",
+                    body: JSON.stringify({
+                        opinion_id: opinionId
+                    })
+                }
+            ).catch((err) => {})
+            result = await result.json()
+            if(result.status == 200){
+                document.getElementById("id_create_room_success").classList.remove("d-none")
+                document.getElementById("id_create_room_form").classList.add("d-none")
+                document.getElementById("id_room_code").innerText = result.data.code
+            }
+            console.info(result)
+        }
+
+        const resetCreateRoomForm = () => {
+            document.getElementById("id_create_room_success").classList.add("d-none")
+            document.getElementById("id_create_room_form").classList.remove("d-none")  
+        }
+
