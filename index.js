@@ -23,7 +23,7 @@ app.use(express.json());
 
 // runSeeding()
 
-app.use("/api", setupRoutes());
+app.use("/app", setupRoutes());
 
 app.get("/ping", (req, res) => {
   res.send("PONG");

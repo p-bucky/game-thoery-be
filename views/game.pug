@@ -1,5 +1,66 @@
 extends ./index.pug
 
 block content
-    div.container
-        button.btn.btn-primary(type='button') Click Me
+    div.container-fluid
+        div.d-flex.flex-row.justify-content-center.mt-3
+            button(class="nes-btn me-3" onclick="document.getElementById('create-room-dialog').showModal();")="Create Room"
+            button(class="nes-btn" onclick="document.getElementById('join-room-dialog').showModal();")="Join Room"
+
+        div.container.mt-5
+            p.nes-text.is-success="Make Decision On"
+            p.nes-text.is-primary="NES.css only provides components. You will need to define your own layout. NES.css only provides components. You will need to define your own layout. NES.css only provides components. You will need to define your own layout."
+
+        div
+            div 
+                div.d-flex.flex-row.justify-content-center.mb-3.mt-5
+                    div.me-4.d-flex.flex-row
+                        span.nes-text.is-primary.me-2="You"
+                        i.nes-icon.coin.is-small.coin-icon.me-2
+                        p="10"
+
+
+                    div.d-flex.flex-row
+                        span.nes-text.is-success.me-2="Player"
+                        i.nes-icon.coin.is-small.coin-icon.me-2
+                        p="10"
+
+            div.d-flex.flex-row.justify-content-center
+                div.d-flex.flex-row.overflow-scroll
+                    each grid, index in [...Array(grid_length).keys()]
+                        div(class=`${index == 2 ? "active-box" : ""}`)
+                            div.box.nes-container.is-rounded.is-success
+                            div.box.nes-container.is-rounded.is-error
+            div.d-flex.flex-row.justify-content-center.mt-4
+                    button.nes-btn.is-error.me-3="Defect"
+                    button.nes-btn.is-success="Coprate"
+        
+        dialog(class="nes-dialog is-rounded" id="create-room-dialog")
+            form(method="dialog")
+                p.title="Create Room"
+                p="Share the generated code with your friend to play together."
+                label(for="default_select")="Select the opinion"
+                div.nes-select
+                    select(required id="default_select")
+                        option(value="" disabled selected hidden)="Three"
+                        option(value="0")="One"
+                        option(value="1")="Two"
+
+            menu.dialog-menu.modal_menu
+                button(class="nes-btn me-3" onclick="document.getElementById('create-room-dialog').close();")="Cancel"
+                button.nes-btn.is-primary="Create"   
+            
+            div
+                div.nes-container.is-rounded.is-dark
+                    p="345443"
+                menu.dialog-menu.modal_menu
+                    button(class="nes-btn me-3" onclick="document.getElementById('create-room-dialog').close();")="Cancel"
+                    button.nes-btn.is-primary="Join" 
+
+
+        dialog(class="nes-dialog is-rounded" id="join-room-dialog")
+            form(method="dialog")
+                p.title="Join Room"
+                input(type="text" id="warning_field" class="nes-input is-dark" placeholder="Code")
+            menu.dialog-menu.modal_menu
+                button(class="nes-btn me-3" onclick="document.getElementById('join-room-dialog').close();")="Cancel"
+                button.nes-btn.is-primary="Join"   
