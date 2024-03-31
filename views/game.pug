@@ -1,12 +1,12 @@
 extends ./index.pug
 
 block content
-    div.container-fluid
+    div.container-md
         div.d-flex.flex-row.justify-content-center.mt-3
             button(class="nes-btn me-3" onclick="document.getElementById('create-room-dialog').showModal();")="Create Room"
             button(class="nes-btn" onclick="document.getElementById('join-room-dialog').showModal();")="Join Room"
 
-        div.container.mt-5
+        div.mt-5
             p.nes-text.is-success="Make Decision On"
             p.nes-text.is-primary="NES.css only provides components. You will need to define your own layout. NES.css only provides components. You will need to define your own layout. NES.css only provides components. You will need to define your own layout."
 
@@ -28,8 +28,8 @@ block content
                 div.d-flex.flex-row.overflow-scroll
                     each grid, index in [...Array(grid_length).keys()]
                         div(class=`${index == 2 ? "active-box" : ""}`)
-                            div.box.nes-container.is-rounded.is-success
-                            div.box.nes-container.is-rounded.is-error
+                            div(class=`${index == 0 ? "box-first" : ""} box nes-container is-rounded is-success`)
+                            div(class=`${index == 0 ? "box-first" : ""} box nes-container is-rounded is-error`)
             div.d-flex.flex-row.justify-content-center.mt-4
                     button.nes-btn.is-error.me-3="Defect"
                     button.nes-btn.is-success="Coprate"
