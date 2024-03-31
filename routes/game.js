@@ -8,13 +8,12 @@ exports.getGame = async (req, resp) => {
     const result = await pg_client.query(query);
 
     const query2 = knex("opinions").select("*").toString();
-    const opnionsResult = await pg_client.query(query2);
+    const opnionsRes = await pg_client.query(query2);
 
     data = {
       ...(result.rows[0] || {}),
-      opinions: opnionsResult.rows,
+      opinions: opnionsRes.rows,
     };
-    // console.log(data);
     resp.render("game", data);
   } catch (err) {
     console.log(err);

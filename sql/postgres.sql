@@ -30,3 +30,12 @@ CREATE TABLE IF NOT EXISTS game (
     updated_at timestamp NOT NULL DEFAULT now(),
     FOREIGN KEY (room_code) REFERENCES rooms (code)
 );
+
+
+DROP TABLE IF EXISTS "public"."user_sessions";
+CREATE TABLE "public"."user_sessions" (
+    "sid" varchar NOT NULL,
+    "sess" json NOT NULL,
+    "expire" timestamp NOT NULL,
+    PRIMARY KEY ("sid")
+);
