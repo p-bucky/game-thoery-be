@@ -9,37 +9,37 @@ exports.getGame = async (req, resp) => {
 
     personId = req.session.authentication.person_id;
     roomCode = req.query.room;
+    data = {};
+    data.person_id = personId;
 
     const query2 = knex("opinions").select("*").toString();
     const opnionsQueryResult = await pg_client.query(query2);
 
-    const query = knex("rooms")
-      .select(
-        "rooms.code",
-        "opinions.description as opinion",
-        "rooms.player_one",
-        "rooms.player_two",
-        "game.grid",
-        "game.grid_length"
-      )
-      .where("player_one", personId)
-      .where("room_code", roomCode)
-      .orWhere("player_two", personId)
-      .innerJoin("game", "game.room_code", "rooms.code")
-      .innerJoin("opinions", "opinions.opinion_id", "rooms.opinion_id")
-      .toString();
+    data.opinions = opnionsQueryResult.rows;
 
-    const gameQueryResult = await pg_client.query(query);
+    if (roomCode) {
+      const query = knex("rooms")
+        .select(
+          "rooms.code",
+          "opinions.description as opinion",
+          "rooms.player_one",
+          "rooms.player_two",
+          "game.grid",
+          "game.grid_length"
+        )
+        .where("room_code", roomCode)
+        .andWhere(function () {
+          this.where("player_one", personId).orWhere("player_two", personId);
+        })
+        .innerJoin("game", "game.room_code", "rooms.code")
+        .innerJoin("opinions", "opinions.opinion_id", "rooms.opinion_id")
+        .toString();
 
-    data = {
-      ...(gameQueryResult.rows[0] || {}),
-      opinions: opnionsQueryResult.rows,
-      person_id: personId
-    };
+      const gameQueryResult = await pg_client.query(query);
+      data = Object.assign({}, data, gameQueryResult.rows[0]);
+    }
 
-    console.log(data)
     resp.render("game", data);
-
   } catch (err) {
     console.log(err);
     resp.json({ message: "Something went wrong", status: 500 }).status(500);
