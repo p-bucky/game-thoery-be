@@ -23,7 +23,23 @@ exports.createRoom = async (req, resp) => {
       .toString();
 
     const result = await pg_client.query(query);
-    resp.status(200).json({ data: result.rows[0], status: 200 });
+
+    const query2 = knex("game")
+      .insert({
+        room_code: result.rows[0].code,
+        grid_length: 10,
+        is_active: true,
+        created_at: new Date(),
+        updated_at: new Date(),
+      })
+      .returning("*")
+      .toString();
+
+    await pg_client.query(query2);
+
+    resp
+      .status(200)
+      .json({ data: { ...result.rows[0], person_id: personId }, status: 200 });
   } catch (err) {
     resp.json({ message: "Something went wrong", status: 500 }).status(500);
   }
@@ -31,9 +47,13 @@ exports.createRoom = async (req, resp) => {
 
 exports.joinRoom = async (req, resp) => {
   try {
+    let personId = null;
     let playerTwo = null;
-    playerTwo = req.body.playerTwo;
+    req.body = JSON.parse(req.body);
 
+    playerTwo = req.body.player_two;
+    personId = req.session.authentication.person_id;
+    console.log(playerTwo)
     const query = knex("rooms")
       .update({
         player_two: playerTwo,
@@ -44,19 +64,10 @@ exports.joinRoom = async (req, resp) => {
 
     const result = await pg_client.query(query);
 
-    const query2 = knex("game")
-      .insert({
-        room_code: req.body.code,
-        grid_length: 10,
-        is_active: true,
-        created_at: new Date(),
-        updated_at: new Date(),
-      })
-      .returning("*")
-      .toString();
-
-    await pg_client.query(query2);
-    resp.status(200).json(result.rows[0]);
+    console.log(result)
+    resp
+      .status(200)
+      .json({ data: { ...result.rows[0], person_id: personId }, status: 200 });
   } catch (err) {
     console.log(err);
     resp.json({ message: "Something went wrong", status: 500 }).status(500);
