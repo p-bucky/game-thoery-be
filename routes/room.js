@@ -53,7 +53,20 @@ exports.joinRoom = async (req, resp) => {
 
     playerTwo = req.body.player_two;
     personId = req.session.authentication.person_id;
-    console.log(playerTwo)
+    
+    const query1 = knex("rooms")
+      .select("*")
+      .where("code", req.body.code)
+      .toString();
+
+    const result1 = await pg_client.query(query1);
+
+    if (result1.rows?.[0]?.player_one == playerTwo) {
+      return resp
+        .status(400)
+        .json({ status: 400, message: "Join with diffrent code" });
+    }
+
     const query = knex("rooms")
       .update({
         player_two: playerTwo,
@@ -64,7 +77,7 @@ exports.joinRoom = async (req, resp) => {
 
     const result = await pg_client.query(query);
 
-    console.log(result)
+    // console.log(result);
     resp
       .status(200)
       .json({ data: { ...result.rows[0], person_id: personId }, status: 200 });
