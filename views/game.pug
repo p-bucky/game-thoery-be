@@ -8,7 +8,7 @@ block content
 
         div.mt-5
             p.nes-text.is-success="Make Decision On"
-            p.nes-text.is-primary="NES.css only provides components. You will need to define your own layout. NES.css only provides components. You will need to define your own layout. NES.css only provides components. You will need to define your own layout."
+            p.nes-text.is-primary=opinion
 
         div
             div 
@@ -55,18 +55,20 @@ block content
                         p(id="id_room_code" style="letter-spacing:2px")
                     menu.dialog-menu.modal_menu
                         button(class="nes-btn me-3" onclick="document.getElementById('create-room-dialog').close(); resetCreateRoomForm();")="Cancel"
-                        button.nes-btn.is-primary="Join" 
+                        button(class="nes-btn is-primary" onclick="handleJoinRoom();")="Join" 
 
 
         dialog(class="nes-dialog is-rounded" id="join-room-dialog")
             form(method="dialog")
                 p.title="Join Room"
-                input(type="text" id="warning_field" class="nes-input is-dark" placeholder="Code")
+                input(type="text" id="id_join_room_code" class="nes-input is-dark" placeholder="Code")
             menu.dialog-menu.modal_menu
                 button(class="nes-btn me-3" onclick="document.getElementById('join-room-dialog').close();")="Cancel"
-                button.nes-btn.is-primary="Join"   
+                button(class="nes-btn is-primary" onclick="joinRoomApi();")="Join"   
 
     script.
+        const person_id = !{JSON.stringify(person_id)};
+        
         const createRoomApi = async () => {
             const opinionId = document.getElementById("opinion_select").selectedOptions[0].value
             let result = null;
@@ -93,3 +95,25 @@ block content
             document.getElementById("id_create_room_form").classList.remove("d-none")  
         }
 
+        const handleJoinRoom = () => {
+            window.location.replace(`?room=${document.getElementById("id_room_code").innerText}`);
+        }
+
+        const joinRoomApi = async () => {
+            let result = null;
+            result = await fetch(
+            `/app/room/join`,
+                {
+                    method: "POST",
+                    body: JSON.stringify({
+                        player_two: person_id,
+                        code: document.getElementById("id_join_room_code").value
+                    })
+                }
+            ).catch((err) => {})
+            result = await result.json()
+            console.log(result)
+            if(result.status == 200){
+
+            }
+        }
