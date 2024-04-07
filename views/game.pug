@@ -31,11 +31,11 @@ block content
                     div.d-flex.flex-row.overflow-scroll.p-2
                         each gridItem, index in (grid || []) 
                             div(class=`${index == 2 ? "active-box" : ""}`)
-                                div(class=`${index == 0 ? "box-first" : ""} box nes-container is-rounded ${gridItem[person_id].decison && (gridItem[person_id].decison == "DEFECT" ? "is-error" : "is-success")}`)
-                                div(class=`${index == 0 ? "box-first" : ""} box nes-container is-rounded  ${gridItem[opponent].decison && (gridItem[opponent].decison == "DEFECT" ? "is-error" : "is-success")}`)
+                                div(class=`${index == 0 ? "box-first" : ""} box nes-container is-rounded ${gridItem.decisions[person_id].decision && (gridItem.decisions[person_id].decision == "DEFECT" ? "is-error" : "is-success")}`)
+                                div(class=`${index == 0 ? "box-first" : ""} box nes-container is-rounded ${gridItem.decisions[opponent].decision && (gridItem.decisions[opponent].decision == "DEFECT" ? "is-error" : "is-success")}`)
                 div.d-flex.flex-row.justify-content-center.mt-4
-                        button.nes-btn.is-error.me-3="Defect"
-                        button.nes-btn.is-success="Coprate"
+                        button(class="nes-btn is-error me-3" onclick="updateGrid('DEFECT')")="Defect"
+                        button(class="nes-btn is-success" onclick="updateGrid('COPRATE')")="Coprate"
             
         dialog(class="nes-dialog is-rounded" id="create-room-dialog")
             div(id="id_create_room_form")
@@ -71,6 +71,7 @@ block content
 
     script.
         const person_id = !{JSON.stringify(person_id)};
+        const code = !{JSON.stringify(code || "")};
         
         const createRoomApi = async () => {
             const opinionId = document.getElementById("opinion_select").selectedOptions[0].value
@@ -119,4 +120,19 @@ block content
             if(result.status == 200){
                 window.location.replace(`?room=${document.getElementById("id_join_room_code").value}`);
             }
+        }
+
+        const updateGrid = async (decision) => {
+            let result = null;
+            result = await fetch(
+            `/app/grid`,
+                {
+                    method: "PUT",
+                    body: JSON.stringify({
+                        decision,
+                        code
+                    })
+                }
+            ).catch((err) => {})
+            result = await result.json()
         }
