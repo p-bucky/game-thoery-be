@@ -82,12 +82,25 @@ block content
                 menu.dialog-menu.modal_menu
                     button(class="nes-btn me-3" onclick="document.getElementById('game-complete-dialog').close();")="Close"
 
+        dialog(class="nes-dialog is-rounded" id="game-help-dialog")
+            form(method="dialog")
+                p.title="Help!"
+                div 
+                    img(src="/gametheory/static/images/tut.jpg", alt="tut", style="width:350px")
+                    p.pt-4="Learn More"
+                        a(href="https://www.youtube.com/watch?v=UkXI-zPcDIM" class="ms-3" target="_blank")="View Video"
+            div.d-flex.flex-row.justify-content-center
+                menu.dialog-menu.modal_menu
+                    button(class="nes-btn me-3" onclick="document.getElementById('game-help-dialog').close();")="Close"
+    div.mt-5.d-flex.flex-row.justify-content-end.me-5
+        i(class="nes-octocat animate" onclick="document.getElementById('game-help-dialog').showModal();")
+    
     script.
         const person_id = !{JSON.stringify(person_id)};
         const opponent = !{JSON.stringify(opponent || "")};
         const code = !{JSON.stringify(code || "")};
         let __getGridInterval = null;
-        
+
         const createRoomApi = async () => {
             const opinionId = document.getElementById("opinion_select").selectedOptions[0].value
             let result = null;
