@@ -40,6 +40,7 @@ exports.createRoom = async (req, resp) => {
       .status(200)
       .json({ data: { ...result.rows[0], person_id: personId }, status: 200 });
   } catch (err) {
+    console.log("createRoom:-", err);
     resp.json({ message: "Something went wrong", status: 500 }).status(500);
   }
 };
@@ -89,8 +90,8 @@ exports.joinRoom = async (req, resp) => {
               },
               [playerTwo]: {
                 decision: null,
-              }
-            } 
+              },
+            },
           }))
         ),
       })
@@ -104,7 +105,7 @@ exports.joinRoom = async (req, resp) => {
       .status(200)
       .json({ data: { ...result.rows[0], person_id: personId }, status: 200 });
   } catch (err) {
-    console.log(err);
+    console.log("joinRoom:-", err);
     resp.json({ message: "Something went wrong", status: 500 }).status(500);
   }
 };
