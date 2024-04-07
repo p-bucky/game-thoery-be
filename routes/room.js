@@ -27,7 +27,6 @@ exports.createRoom = async (req, resp) => {
     const query2 = knex("game")
       .insert({
         room_code: result.rows[0].code,
-        grid_length: 10,
         is_active: true,
         created_at: new Date(),
         updated_at: new Date(),
@@ -49,19 +48,21 @@ exports.joinRoom = async (req, resp) => {
   try {
     let personId = null;
     let playerTwo = null;
+    let playerOne = null;
     req.body = JSON.parse(req.body);
 
     playerTwo = req.body.player_two;
     personId = req.session.authentication.person_id;
-    
+
     const query1 = knex("rooms")
       .select("*")
       .where("code", req.body.code)
       .toString();
 
     const result1 = await pg_client.query(query1);
+    playerOne = result1.rows?.[0]?.player_one;
 
-    if (result1.rows?.[0]?.player_one == playerTwo) {
+    if (playerOne == playerTwo) {
       return resp
         .status(400)
         .json({ status: 400, message: "Join with diffrent code" });
@@ -77,7 +78,26 @@ exports.joinRoom = async (req, resp) => {
 
     const result = await pg_client.query(query);
 
-    // console.log(result);
+    const query2 = knex("game")
+      .update({
+        grid: JSON.stringify(
+          [...Array(10).keys()].map((_, id) => ({
+            id,
+            [playerOne]: {
+              decison: null,
+            },
+            [playerTwo]: {
+              decison: null,
+            },
+          }))
+        ),
+      })
+      .where("room_code", req.body.code)
+      .returning("*")
+      .toString();
+
+    await pg_client.query(query2);
+
     resp
       .status(200)
       .json({ data: { ...result.rows[0], person_id: personId }, status: 200 });

@@ -24,7 +24,6 @@ CREATE TABLE IF NOT EXISTS game (
     id bigserial PRIMARY KEY,
     room_code varchar(100),
     grid JSON,
-    grid_length smallint,
     is_active boolean NOT NULL DEFAULT TRUE,
     created_at timestamp NOT NULL DEFAULT now(),
     updated_at timestamp NOT NULL DEFAULT now(),
