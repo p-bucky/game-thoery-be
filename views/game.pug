@@ -19,23 +19,23 @@ block content
                         div.me-4.d-flex.flex-row
                             span.nes-text.is-primary.me-2="You"
                             i.nes-icon.coin.is-small.coin-icon.me-2
-                            p="10"
+                            p(id="id_my_score")=score[person_id]
 
 
                         div.d-flex.flex-row
                             span.nes-text.is-success.me-2="Player"
                             i.nes-icon.coin.is-small.coin-icon.me-2
-                            p="10"
+                            p(id="id_player_score")=score[opponent]
 
                 div.d-flex.flex-row.justify-content-center
-                    div.d-flex.flex-row.overflow-scroll.p-2
+                    div(class="d-flex flex-row overflow-scroll p-2" id="id_grid_view")
                         each gridItem, index in (grid || []) 
-                            div(class=`${index == 2 ? "active-box" : ""}`)
+                            div(class=`${index == 2 ? "active-box-" : ""}`)
                                 div(class=`${index == 0 ? "box-first" : ""} box nes-container is-rounded ${gridItem.decisions[person_id].decision && (gridItem.decisions[person_id].decision == "DEFECT" ? "is-error" : "is-success")}`)
-                                div(class=`${index == 0 ? "box-first" : ""} box nes-container is-rounded ${gridItem.decisions[opponent].decision && (gridItem.decisions[opponent].decision == "DEFECT" ? "is-error" : "is-success")}`)
+                                div(class=`${index == 0 ? "box-first" : ""} box nes-container is-rounded ${gridItem.decisions[person_id].decision && gridItem.decisions[opponent].decision && (gridItem.decisions[opponent].decision == "DEFECT" ? "is-error" : "is-success")}`)
                 div.d-flex.flex-row.justify-content-center.mt-4
                         button(class="nes-btn is-error me-3" onclick="updateGrid('DEFECT')")="Defect"
-                        button(class="nes-btn is-success" onclick="updateGrid('COPRATE')")="Coprate"
+                        button(class="nes-btn is-success" onclick="updateGrid('COOPERATE')")="Cooperate"
             
         dialog(class="nes-dialog is-rounded" id="create-room-dialog")
             div(id="id_create_room_form")
@@ -71,6 +71,7 @@ block content
 
     script.
         const person_id = !{JSON.stringify(person_id)};
+        const opponent = !{JSON.stringify(opponent || "")};
         const code = !{JSON.stringify(code || "")};
         
         const createRoomApi = async () => {
@@ -135,4 +136,43 @@ block content
                 }
             ).catch((err) => {})
             result = await result.json()
+            if(result.status == 200){
+                getGrid()
+            }
+        }
+
+        const updateGridView = (grid, score, person_id, opponent) => {
+            let viewHtml = ""
+            grid?.map((gridItem, index) => {
+               viewHtml +=  `
+                <div class="${index == 2 ? 'active-box-' : ''}">
+                    <div class="${index == 0 ? 'box-first' : ''} box nes-container is-rounded ${gridItem.decisions[person_id].decision && (gridItem.decisions[person_id].decision == 'DEFECT' ? 'is-error' : 'is-success')}"></div>
+                    <div class="${index == 0 ? 'box-first' : ''} box nes-container is-rounded ${gridItem.decisions[person_id].decision && gridItem.decisions[opponent].decision && (gridItem.decisions[opponent].decision == 'DEFECT' ? 'is-error' : 'is-success')}"></div>
+                </div>
+                `
+            })
+
+            document.getElementById("id_grid_view").innerHTML = viewHtml
+
+            document.getElementById("id_my_score").innerText = score[person_id]
+            document.getElementById("id_player_score").innerText = score[opponent]
+
+        }
+
+        const getGrid = async (decision) => {
+            let result = null;
+            result = await fetch(
+            `/app/grid/${code}`,
+                {
+                    method: "GET",
+                }
+            ).catch((err) => {})
+            result = await result.json()
+            updateGridView(result?.data?.grid, result?.data?.score, result?.data?.person_id,  result?.data?.opponent)
+        }
+
+        if(code){
+            setInterval(() => {
+                getGrid()
+            }, 5000)
         }

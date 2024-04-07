@@ -9,6 +9,7 @@ function setupRoutes() {
   router.post("/room/join", roomApi.joinRoom);
 
   router.put("/grid", gameApi.updateGrid);
+  router.get("/grid/:code", gameApi.getGrid);
 
   router.get("/game", gameApi.getGame)
 

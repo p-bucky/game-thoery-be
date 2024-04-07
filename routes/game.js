@@ -1,5 +1,55 @@
+const { DECISIONS } = require("../constants/constants");
 const { pg_client } = require("../db");
 const { knex } = require("../db/query-builder");
+const { sumOfArray } = require("../utils/misc");
+
+const getScore = (grid, p1, p2) => {
+  let p1Score = [];
+  let p2Score = [];
+
+  grid?.map((item) => {
+    if (
+      item.decisions[p1].decision == DECISIONS.COOPERATE &&
+      item.decisions[p2].decision == DECISIONS.COOPERATE
+    ) {
+      p1Score.push(3);
+      p2Score.push(3);
+      return;
+    }
+    if (
+      item.decisions[p1].decision == DECISIONS.COOPERATE &&
+      item.decisions[p2].decision == DECISIONS.DEFECT
+    ) {
+      p1Score.push(0);
+      p2Score.push(5);
+      return;
+    }
+    if (
+      item.decisions[p1].decision == DECISIONS.DEFECT &&
+      item.decisions[p2].decision == DECISIONS.COOPERATE
+    ) {
+      p1Score.push(5);
+      p2Score.push(0);
+      return;
+    }
+    if (
+      item.decisions[p1].decision == DECISIONS.DEFECT &&
+      item.decisions[p2].decision == DECISIONS.DEFECT
+    ) {
+      p1Score.push(1);
+      p2Score.push(1);
+      return;
+    }
+    return;
+  });
+
+  return {
+    score: {
+      [p1]: sumOfArray(p1Score),
+      [p2]: sumOfArray(p2Score),
+    },
+  };
+};
 
 exports.getGame = async (req, resp) => {
   try {
@@ -11,6 +61,7 @@ exports.getGame = async (req, resp) => {
     roomCode = req.query.room;
     data = {};
     data.person_id = personId;
+
 
     const query2 = knex("opinions").select("*").toString();
     const opnionsQueryResult = await pg_client.query(query2);
@@ -36,6 +87,9 @@ exports.getGame = async (req, resp) => {
 
       const gameQueryResult = await pg_client.query(query);
 
+      if(gameQueryResult.rows.length == 0){
+        return resp.redirect('/app/game');
+      }
       const p1 = gameQueryResult.rows[0].player_one;
       const p2 = gameQueryResult.rows[0].player_two;
 
@@ -50,7 +104,73 @@ exports.getGame = async (req, resp) => {
       data = Object.assign({}, data, gameQueryResult.rows[0]);
     }
 
+    const { score } = getScore(
+      data.grid,
+      data.player_one,
+      data.player_two
+    );
+    data.score = score;
     resp.render("game", data);
+  } catch (err) {
+    console.log("getGame:-", err);
+    resp.json({ message: "Something went wrong", status: 500 }).status(500);
+  }
+};
+
+exports.getGrid = async (req, resp) => {
+  try {
+    let data = null;
+    let personId = null;
+    let roomCode = req.params.code;
+
+    personId = req.session.authentication.person_id;
+
+    data = {};
+    data.person_id = personId;
+
+    // const query = knex("game")
+    //   .select("*")
+    //   .where("room_code", roomCode)
+    //   .toString();
+    // const result = await pg_client.query(query);
+
+    if (roomCode) {
+      const query = knex("rooms")
+        .select(
+          "rooms.code",
+          "opinions.description as opinion",
+          "rooms.player_one",
+          "rooms.player_two",
+          "game.grid"
+        )
+        .where("room_code", roomCode)
+        .innerJoin("game", "game.room_code", "rooms.code")
+        .innerJoin("opinions", "opinions.opinion_id", "rooms.opinion_id")
+        .toString();
+
+      const gameQueryResult = await pg_client.query(query);
+
+      const p1 = gameQueryResult.rows[0].player_one;
+      const p2 = gameQueryResult.rows[0].player_two;
+
+      if (personId == p1) {
+        data.opponent = p2;
+      }
+
+      if (personId == p2) {
+        data.opponent = p1;
+      }
+
+      data = Object.assign({}, data, gameQueryResult.rows[0]);
+    }
+
+    const { score } = getScore(
+      data.grid,
+      data.player_one,
+      data.player_two
+    );
+    data.score = score;
+    resp.json({ data, status: 200 });
   } catch (err) {
     console.log(err);
     resp.json({ message: "Something went wrong", status: 500 }).status(500);
@@ -68,16 +188,17 @@ exports.updateGrid = async (req, resp) => {
     decision = req.body.decision;
     code = req.body.code;
 
+    if (![DECISIONS.COOPERATE, DECISIONS.DEFECT].includes(decision)) {
+      throw new Error("Wrong Body" + decision);
+    }
     const query = knex("game").select("*").where("room_code", code).toString();
     const result = await pg_client.query(query);
     if (result.rows[0].is_completed) {
-      return resp
-        .status(400)
-        .json({
-          code: "GAME_COMPLETED",
-          message: "Game Already Completed",
-          status: 400,
-        });
+      return resp.status(400).json({
+        code: "GAME_COMPLETED",
+        message: "Game Already Completed",
+        status: 400,
+      });
     }
 
     grid = result?.rows?.[0]?.grid;
@@ -127,7 +248,7 @@ exports.updateGrid = async (req, resp) => {
       await pg_client.query(query);
     }
 
-    resp.json(result2?.rows?.[0]?.grid);
+    resp.json({ data: result2?.rows?.[0]?.grid, status: 200 });
   } catch (err) {
     console.log(err);
     resp.json({ message: "Something went wrong", status: 500 }).status(500);
