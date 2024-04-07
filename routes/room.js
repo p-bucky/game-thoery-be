@@ -83,12 +83,14 @@ exports.joinRoom = async (req, resp) => {
         grid: JSON.stringify(
           [...Array(10).keys()].map((_, id) => ({
             id,
-            [playerOne]: {
-              decison: null,
-            },
-            [playerTwo]: {
-              decison: null,
-            },
+            decisions: {
+              [playerOne]: {
+                decision: null,
+              },
+              [playerTwo]: {
+                decision: null,
+              }
+            } 
           }))
         ),
       })

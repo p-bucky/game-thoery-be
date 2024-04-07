@@ -8,6 +8,8 @@ function setupRoutes() {
   router.post("/room", roomApi.createRoom);
   router.post("/room/join", roomApi.joinRoom);
 
+  router.put("/grid", gameApi.updateGrid);
+
   router.get("/game", gameApi.getGame)
 
 
