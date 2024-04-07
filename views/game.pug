@@ -28,11 +28,11 @@ block content
                             p="10"
 
                 div.d-flex.flex-row.justify-content-center
-                    div.d-flex.flex-row.overflow-scroll
-                        each grid, index in [...Array(grid_length).keys()]
+                    div.d-flex.flex-row.overflow-scroll.p-2
+                        each gridItem, index in (grid || []) 
                             div(class=`${index == 2 ? "active-box" : ""}`)
-                                div(class=`${index == 0 ? "box-first" : ""} box nes-container is-rounded is-success`)
-                                div(class=`${index == 0 ? "box-first" : ""} box nes-container is-rounded is-error`)
+                                div(class=`${index == 0 ? "box-first" : ""} box nes-container is-rounded ${gridItem[person_id].decison && (gridItem[person_id].decison == "DEFECT" ? "is-error" : "is-success")}`)
+                                div(class=`${index == 0 ? "box-first" : ""} box nes-container is-rounded  ${gridItem[opponent].decison && (gridItem[opponent].decison == "DEFECT" ? "is-error" : "is-success")}`)
                 div.d-flex.flex-row.justify-content-center.mt-4
                         button.nes-btn.is-error.me-3="Defect"
                         button.nes-btn.is-success="Coprate"

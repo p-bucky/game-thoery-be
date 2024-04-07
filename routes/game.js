@@ -24,8 +24,7 @@ exports.getGame = async (req, resp) => {
           "opinions.description as opinion",
           "rooms.player_one",
           "rooms.player_two",
-          "game.grid",
-          "game.grid_length"
+          "game.grid"
         )
         .where("room_code", roomCode)
         .andWhere(function () {
@@ -36,6 +35,18 @@ exports.getGame = async (req, resp) => {
         .toString();
 
       const gameQueryResult = await pg_client.query(query);
+
+      const p1 = gameQueryResult.rows[0].player_one;
+      const p2 = gameQueryResult.rows[0].player_two;
+
+      if (personId == p1) {
+        data.opponent = p2;
+      }
+
+      if (personId == p2) {
+        data.opponent = p1;
+      }
+
       data = Object.assign({}, data, gameQueryResult.rows[0]);
     }
 
