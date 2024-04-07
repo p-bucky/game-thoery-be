@@ -141,7 +141,8 @@ exports.getGrid = async (req, resp) => {
           "opinions.description as opinion",
           "rooms.player_one",
           "rooms.player_two",
-          "game.grid"
+          "game.grid",
+          "game.is_completed"
         )
         .where("room_code", roomCode)
         .innerJoin("game", "game.room_code", "rooms.code")
@@ -203,6 +204,10 @@ exports.updateGrid = async (req, resp) => {
 
     grid = result?.rows?.[0]?.grid;
 
+    if(!grid) {
+     return resp.status(400).json({ message: "Grid not found", status: 400 })
+    }
+
     let toUpdateIndex = 0;
     for (gridItem of grid) {
       if (gridItem.decisions[personId].decision) {
@@ -210,7 +215,7 @@ exports.updateGrid = async (req, resp) => {
       }
     }
 
-    grid = grid.map((item, i) => {
+    grid = grid?.map((item, i) => {
       if (toUpdateIndex == i) {
         item.decisions[personId].decision = decision;
         return item;

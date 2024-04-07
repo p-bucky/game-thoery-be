@@ -28,6 +28,10 @@ block content
                             p(id="id_player_score")=score[opponent]
 
                 div.d-flex.flex-row.justify-content-center
+                    if !grid
+                        div(id="id_grid_loading")
+                            p.text-center="Loading... Ask Player to join the game"
+                            p.text-center.nes-text.is-primary=`Share ${code} to join the game.`
                     div(class="d-flex flex-row overflow-scroll p-2" id="id_grid_view")
                         each gridItem, index in (grid || []) 
                             div(class=`${index == 2 ? "active-box-" : ""}`)
@@ -68,11 +72,21 @@ block content
             menu.dialog-menu.modal_menu
                 button(class="nes-btn me-3" onclick="document.getElementById('join-room-dialog').close();")="Cancel"
                 button(class="nes-btn is-primary" onclick="joinRoomApi();")="Join"   
+        
+        dialog(class="nes-dialog is-rounded" id="game-complete-dialog")
+            form(method="dialog")
+                p.title="Game Completed"
+                p(id="id_win_text")=""
+                p.nes-text.is-primary.text-center=opinion
+            div.d-flex.flex-row.justify-content-center
+                menu.dialog-menu.modal_menu
+                    button(class="nes-btn me-3" onclick="document.getElementById('game-complete-dialog').close();")="Close"
 
     script.
         const person_id = !{JSON.stringify(person_id)};
         const opponent = !{JSON.stringify(opponent || "")};
         const code = !{JSON.stringify(code || "")};
+        let __getGridInterval = null;
         
         const createRoomApi = async () => {
             const opinionId = document.getElementById("opinion_select").selectedOptions[0].value
@@ -92,7 +106,6 @@ block content
                 document.getElementById("id_create_room_form").classList.add("d-none")
                 document.getElementById("id_room_code").innerText = result.data.code
             }
-            console.info(result)
         }
 
         const resetCreateRoomForm = () => {
@@ -117,7 +130,6 @@ block content
                 }
             ).catch((err) => {})
             result = await result.json()
-            console.log(result)
             if(result.status == 200){
                 window.location.replace(`?room=${document.getElementById("id_join_room_code").value}`);
             }
@@ -141,7 +153,10 @@ block content
             }
         }
 
-        const updateGridView = (grid, score, person_id, opponent) => {
+        const updateGridView = (grid, score, person_id, opponent, is_completed) => {
+            if(grid){
+                document.getElementById("id_grid_loading")?.classList.add("d-none")
+            }
             let viewHtml = ""
             grid?.map((gridItem, index) => {
                viewHtml +=  `
@@ -157,6 +172,19 @@ block content
             document.getElementById("id_my_score").innerText = score[person_id]
             document.getElementById("id_player_score").innerText = score[opponent]
 
+            if(is_completed){
+                if(score[person_id] > score[opponent]){
+                    document.getElementById("id_win_text").innerText = "You, won the game. Now you can make decision which can change the society."
+                }
+                if(score[person_id] < score[opponent]){
+                    document.getElementById("id_win_text").innerText = "Player, won the game. Now you have to agree on his decision."
+                }
+                if(score[person_id] == score[opponent]){
+                    document.getElementById("id_win_text").innerText = "Draw, You both can make decision together."
+                }
+                document.getElementById('game-complete-dialog').showModal();
+                clearInterval(__getGridInterval)
+            }
         }
 
         const getGrid = async (decision) => {
@@ -168,11 +196,12 @@ block content
                 }
             ).catch((err) => {})
             result = await result.json()
-            updateGridView(result?.data?.grid, result?.data?.score, result?.data?.person_id,  result?.data?.opponent)
+            updateGridView(result?.data?.grid, result?.data?.score, result?.data?.person_id,  result?.data?.opponent, result?.data?.is_completed)
         }
 
         if(code){
-            setInterval(() => {
+            getGrid()
+            __getGridInterval = setInterval(() => {
                 getGrid()
             }, 5000)
         }
