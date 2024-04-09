@@ -13,6 +13,9 @@ const connectDatabase = async () => {
       password: POSTGRES_PASS,
       database: POSTGRES_DB,
       port: 5432,
+      ssl: {
+        rejectUnauthorized: false,
+      },
     });
     await pg_client.connect();
     console.log("Connected to PostgreSQL database");
