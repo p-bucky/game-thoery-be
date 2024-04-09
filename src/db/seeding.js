@@ -1,7 +1,6 @@
 const path = require("node:path");
 const fs = require("node:fs/promises");
 const { pg_client } = require(".");
-const chalk = require("chalk");
 
 const tables = ["opinions"];
 
@@ -16,7 +15,7 @@ async function runSeeding() {
 
   for (const name of tables) {
     try {
-      console.log(chalk.yellow.bold(`SEEDING => ${name}, STATUS: STARTED`));
+      console.log(`SEEDING => ${name}, STATUS: STARTED`);
       const dataPath = path.resolve(process.env.DB_SEED_PATH, `${name}.json`);
       const data = await fs.readFile(dataPath, { encoding: "utf-8" });
       const dataList = JSON.parse(data);
@@ -28,7 +27,7 @@ async function runSeeding() {
         const [query, values] = makeInsertQuery(row, name);
         await pg_client.query(query, values);
       }
-      console.log(chalk.green.bold(`SEEDING => ${name}, STATUS: COMPLETED`));
+      console.log(`SEEDING => ${name}, STATUS: COMPLETED`);
     } catch (err) {
       console.log(err);
     }

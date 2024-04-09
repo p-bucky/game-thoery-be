@@ -3,9 +3,10 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "type": "commonjs",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "nodemon index.js"
+    "dev": "nodemon src/index.js"
   },
   "repository": {
     "type": "git",
@@ -19,7 +20,7 @@
   "homepage": "https://github.com/p-bucky/game-thoery-be#readme",
   "dependencies": {
     "connect-pg-simple": "9.0.1",
-    "cors": "^2.8.5",
+    "cors": "2.8.5",
     "crypto": "1.0.1",
     "dotenv": "16.4.5",
     "express": "4.19.2",
