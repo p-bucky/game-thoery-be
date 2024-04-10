@@ -1,0 +1,14 @@
+node_modules/
+.npm/
+.yarn/
+*.log
+.env
+/build
+/coverage
+package-lock.json
+yarn.lock
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+.DS_Store

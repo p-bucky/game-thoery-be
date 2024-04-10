@@ -1,0 +1,802 @@
+[
+  {
+    "id": 1,
+    "values": {
+      "opinion_id": "question_1",
+      "description": "Should euthanasia be legalized for terminally ill patients?",
+      "is_active": true
+    }
+  },
+  {
+    "id": 2,
+    "values": {
+      "opinion_id": "question_2",
+      "description": "Is the use of solitary confinement in prisons ethical?",
+      "is_active": true
+    }
+  },
+  {
+    "id": 3,
+    "values": {
+      "opinion_id": "question_3",
+      "description": "Should the voting age be lowered to 16?",
+      "is_active": true
+    }
+  },
+  {
+    "id": 4,
+    "values": {
+      "opinion_id": "question_4",
+      "description": "Is climate change the greatest threat to humanity?",
+      "is_active": true
+    }
+  },
+  {
+    "id": 5,
+    "values": {
+      "opinion_id": "question_5",
+      "description": "Should plastic bags be banned to reduce environmental pollution?",
+      "is_active": true
+    }
+  },
+  {
+    "id": 6,
+    "values": {
+      "opinion_id": "question_6",
+      "description": "Is homeschooling a better alternative to traditional schooling?",
+      "is_active": true
+    }
+  },
+  {
+    "id": 7,
+    "values": {
+      "opinion_id": "question_7",
+      "description": "Should there be limits on CEO salaries to reduce income inequality?",
+      "is_active": true
+    }
+  },
+  {
+    "id": 8,
+    "values": {
+      "opinion_id": "question_8",
+      "description": "Is the use of drones in warfare ethical?",
+      "is_active": true
+    }
+  },
+  {
+    "id": 9,
+    "values": {
+      "opinion_id": "question_9",
+      "description": "Should there be stricter gun control laws to reduce gun violence?",
+      "is_active": true
+    }
+  },
+  {
+    "id": 10,
+    "values": {
+      "opinion_id": "question_10",
+      "description": "Is online privacy a fundamental right?",
+      "is_active": true
+    }
+  },
+  {
+    "id": 11,
+    "values": {
+      "opinion_id": "question_11",
+      "description": "Should there be limits on CEO salaries to reduce income inequality?",
+      "is_active": true
+    }
+  },
+  {
+    "id": 12,
+    "values": {
+      "opinion_id": "question_12",
+      "description": "Is the use of drones in warfare ethical?",
+      "is_active": true
+    }
+  },
+  {
+    "id": 13,
+    "values": {
+      "opinion_id": "question_13",
+      "description": "Should there be stricter gun control laws to reduce gun violence?",
+      "is_active": true
+    }
+  },
+  {
+    "id": 14,
+    "values": {
+      "opinion_id": "question_14",
+      "description": "Is online privacy a fundamental right?",
+      "is_active": true
+    }
+  },
+  {
+    "id": 15,
+    "values": {
+      "opinion_id": "question_15",
+      "description": "Should the government provide free healthcare for all citizens?",
+      "is_active": true
+    }
+  },
+  {
+    "id": 16,
+    "values": {
+      "opinion_id": "question_16",
+      "description": "Is globalization beneficial for developing countries?",
+      "is_active": true
+    }
+  },
+  {
+    "id": 17,
+    "values": {
+      "opinion_id": "question_17",
+      "description": "Should there be restrictions on the sale of violent video games?",
+      "is_active": true
+    }
+  },
+  {
+    "id": 18,
+    "values": {
+      "opinion_id": "question_18",
+      "description": "Is homeschooling detrimental to a child's social development?",
+      "is_active": true
+    }
+  },
+  {
+    "id": 19,
+    "values": {
+      "opinion_id": "question_19",
+      "description": "Should there be limits on the number of children a family can have?",
+      "is_active": true
+    }
+  },
+  {
+    "id": 20,
+    "values": {
+      "opinion_id": "question_20",
+      "description": "Is artificial intelligence a threat to humanity?",
+      "is_active": true
+    }
+  },
+  {
+    "id": 21,
+    "values": {
+      "opinion_id": "question_21",
+      "description": "Should there be term limits for politicians?",
+      "is_active": true
+    }
+  },
+  {
+    "id": 22,
+    "values": {
+      "opinion_id": "question_22",
+      "description": "Is online learning as effective as traditional classroom learning?",
+      "is_active": true
+    }
+  },
+  {
+    "id": 23,
+    "values": {
+      "opinion_id": "question_23",
+      "description": "Should the use of performance-enhancing drugs in sports be allowed?",
+      "is_active": true
+    }
+  },
+  {
+    "id": 24,
+    "values": {
+      "opinion_id": "question_24",
+      "description": "Is space exploration worth the cost?",
+      "is_active": true
+    }
+  },
+  {
+    "id": 25,
+    "values": {
+      "opinion_id": "question_25",
+      "description": "Should zoos be abolished?",
+      "is_active": true
+    }
+  },
+  {
+    "id": 26,
+    "values": {
+      "opinion_id": "question_26",
+      "description": "Is nuclear disarmament achievable?",
+      "is_active": true
+    }
+  },
+  {
+    "id": 27,
+    "values": {
+      "opinion_id": "question_27",
+      "description": "Should the drinking age be lowered or raised?",
+      "is_active": true
+    }
+  },
+  {
+    "id": 28,
+    "values": {
+      "opinion_id": "question_28",
+      "description": "Is vegetarianism a more ethical choice than eating meat?",
+      "is_active": true
+    }
+  },
+  {
+    "id": 29,
+    "values": {
+      "opinion_id": "question_29",
+      "description": "Should the internet be regulated to prevent misinformation?",
+      "is_active": true
+    }
+  },
+  {
+    "id": 30,
+    "values": {
+      "opinion_id": "question_30",
+      "description": "Is democracy the best form of government?",
+      "is_active": true
+    }
+  },
+  {
+    "id": 31,
+    "values": {
+      "opinion_id": "question_31",
+      "description": "Should there be limits on freedom of speech to prevent hate speech?",
+      "is_active": true
+    }
+  },
+  {
+    "id": 32,
+    "values": {
+      "opinion_id": "question_32",
+      "description": "Is surveillance necessary for national security?",
+      "is_active": true
+    }
+  },
+  {
+    "id": 33,
+    "values": {
+      "opinion_id": "question_33",
+      "description": "Should there be a universal basic income for all citizens?",
+      "is_active": true
+    }
+  },
+  {
+    "id": 34,
+    "values": {
+      "opinion_id": "question_34",
+      "description": "Is the education system failing our children?",
+      "is_active": true
+    }
+  },
+  {
+    "id": 35,
+    "values": {
+      "opinion_id": "question_35",
+      "description": "Should there be stricter regulations on the food industry?",
+      "is_active": true
+    }
+  },
+  {
+    "id": 36,
+    "values": {
+      "opinion_id": "question_36",
+      "description": "Is capitalism the best economic system?",
+      "is_active": true
+    }
+  },
+  {
+    "id": 37,
+    "values": {
+      "opinion_id": "question_37",
+      "description": "Should there be stricter penalties for white-collar crimes?",
+      "is_active": true
+    }
+  },
+  {
+    "id": 38,
+    "values": {
+      "opinion_id": "question_38",
+      "description": "Is space colonization essential for the survival of humanity?",
+      "is_active": true
+    }
+  },
+  {
+    "id": 39,
+    "values": {
+      "opinion_id": "question_39",
+      "description": "Should there be a ban on cosmetic animal testing?",
+      "is_active": true
+    }
+  },
+  {
+    "id": 40,
+    "values": {
+      "opinion_id": "question_40",
+      "description": "Is cultural appropriation ever acceptable?",
+      "is_active": true
+    }
+  },
+  {
+    "id": 41,
+    "values": {
+      "opinion_id": "question_41",
+      "description": "Should the United Nations have more power in global affairs?",
+      "is_active": true
+    }
+  },
+  {
+    "id": 42,
+    "values": {
+      "opinion_id": "question_42",
+      "description": "Is the use of drones for civilian purposes ethical?",
+      "is_active": true
+    }
+  },
+  {
+    "id": 43,
+    "values": {
+      "opinion_id": "question_43",
+      "description": "Should there be mandatory voting in elections?",
+      "is_active": true
+    }
+  },
+  {
+    "id": 44,
+    "values": {
+      "opinion_id": "question_44",
+      "description": "Is gender equality achievable in our lifetime?",
+      "is_active": true
+    }
+  },
+  {
+    "id": 45,
+    "values": {
+      "opinion_id": "question_45",
+      "description": "Should there be restrictions on immigration to protect domestic jobs?",
+      "is_active": true
+    }
+  },
+  {
+    "id": 46,
+    "values": {
+      "opinion_id": "question_46",
+      "description": "Is climate engineering a viable solution to climate change?",
+      "is_active": true
+    }
+  },
+  {
+    "id": 47,
+    "values": {
+      "opinion_id": "question_47",
+      "description": "Should the government subsidize renewable energy industries?",
+      "is_active": true
+    }
+  },
+  {
+    "id": 48,
+    "values": {
+      "opinion_id": "question_48",
+      "description": "Is universal healthcare economically feasible?",
+      "is_active": true
+    }
+  },
+  {
+    "id": 49,
+    "values": {
+      "opinion_id": "question_49",
+      "description": "Should there be restrictions on advertising to children?",
+      "is_active": true
+    }
+  },
+  {
+    "id": 50,
+    "values": {
+      "opinion_id": "question_50",
+      "description": "Is polygamy morally acceptable?",
+      "is_active": true
+    }
+  },
+  {
+    "id": 51,
+    "values": {
+      "opinion_id": "question_51",
+      "description": "Should there be mandatory ethics training for all professionals?",
+      "is_active": true
+    }
+  },
+  {
+    "id": 52,
+    "values": {
+      "opinion_id": "question_52",
+      "description": "Is animal testing necessary for medical advancements?",
+      "is_active": true
+    }
+  },
+  {
+    "id": 53,
+    "values": {
+      "opinion_id": "question_53",
+      "description": "Should there be a ban on single-use plastics?",
+      "is_active": true
+    }
+  },
+  {
+    "id": 54,
+    "values": {
+      "opinion_id": "question_54",
+      "description": "Is there a need for stricter regulations on financial institutions?",
+      "is_active": true
+    }
+  },
+  {
+    "id": 55,
+    "values": {
+      "opinion_id": "question_55",
+      "description": "Should there be a ban on the sale of fireworks to the public?",
+      "is_active": true
+    }
+  },
+  {
+    "id": 56,
+    "values": {
+      "opinion_id": "question_56",
+      "description": "Is there a need for stricter regulations on the pharmaceutical industry?",
+      "is_active": true
+    }
+  },
+  {
+    "id": 57,
+    "values": {
+      "opinion_id": "question_57",
+      "description": "Should there be a ban on the use of animals in circuses?",
+      "is_active": true
+    }
+  },
+  {
+    "id": 58,
+    "values": {
+      "opinion_id": "question_58",
+      "description": "Is there a need for stricter regulations on the technology industry?",
+      "is_active": true
+    }
+  },
+  {
+    "id": 59,
+    "values": {
+      "opinion_id": "question_59",
+      "description": "Should there be a ban on the use of smartphones in classrooms?",
+      "is_active": true
+    }
+  },
+  {
+    "id": 60,
+    "values": {
+      "opinion_id": "question_60",
+      "description": "Is there a need for stricter regulations on the airline industry?",
+      "is_active": true
+    }
+  },
+  {
+    "id": 61,
+    "values": {
+      "opinion_id": "question_61",
+      "description": "Should there be a ban on the sale of violent video games to minors?",
+      "is_active": true
+    }
+  },
+  {
+    "id": 62,
+    "values": {
+      "opinion_id": "question_62",
+      "description": "Is there a need for stricter regulations on social media platforms?",
+      "is_active": true
+    }
+  },
+  {
+    "id": 63,
+    "values": {
+      "opinion_id": "question_63",
+      "description": "Should there be a ban on the use of animal fur in fashion?",
+      "is_active": true
+    }
+  },
+  {
+    "id": 64,
+    "values": {
+      "opinion_id": "question_64",
+      "description": "Is there a need for stricter regulations on the fast food industry?",
+      "is_active": true
+    }
+  },
+  {
+    "id": 65,
+    "values": {
+      "opinion_id": "question_65",
+      "description": "Should there be a ban on the use of animals in cosmetic testing?",
+      "is_active": true
+    }
+  },
+  {
+    "id": 66,
+    "values": {
+      "opinion_id": "question_66",
+      "description": "Is there a need for stricter regulations on the tobacco industry?",
+      "is_active": true
+    }
+  },
+  {
+    "id": 67,
+    "values": {
+      "opinion_id": "question_67",
+      "description": "Should there be a ban on the use of animals in medical research?",
+      "is_active": true
+    }
+  },
+  {
+    "id": 68,
+    "values": {
+      "opinion_id": "question_68",
+      "description": "Is there a need for stricter regulations on the automotive industry?",
+      "is_active": true
+    }
+  },
+  {
+    "id": 69,
+    "values": {
+      "opinion_id": "question_69",
+      "description": "Should there be a ban on the use of animals in entertainment?",
+      "is_active": true
+    }
+  },
+  {
+    "id": 70,
+    "values": {
+      "opinion_id": "question_70",
+      "description": "Is there a need for stricter regulations on the alcohol industry?",
+      "is_active": true
+    }
+  },
+  {
+    "id": 71,
+    "values": {
+      "opinion_id": "question_71",
+      "description": "Should there be a ban on the use of animals in sports?",
+      "is_active": true
+    }
+  },
+  {
+    "id": 72,
+    "values": {
+      "opinion_id": "question_72",
+      "description": "Is there a need for stricter regulations on the fashion industry?",
+      "is_active": true
+    }
+  },
+  {
+    "id": 73,
+    "values": {
+      "opinion_id": "question_73",
+      "description": "Should there be a ban on the use of animals in zoos?",
+      "is_active": true
+    }
+  },
+  {
+    "id": 74,
+    "values": {
+      "opinion_id": "question_74",
+      "description": "Is there a need for stricter regulations on the pharmaceutical industry?",
+      "is_active": true
+    }
+  },
+  {
+    "id": 75,
+    "values": {
+      "opinion_id": "question_75",
+      "description": "Should there be a ban on the use of animals in agriculture?",
+      "is_active": true
+    }
+  },
+  {
+    "id": 76,
+    "values": {
+      "opinion_id": "question_76",
+      "description": "Is there a need for stricter regulations on the agriculture industry?",
+      "is_active": true
+    }
+  },
+  {
+    "id": 77,
+    "values": {
+      "opinion_id": "question_77",
+      "description": "Should there be a ban on the use of animals in military training?",
+      "is_active": true
+    }
+  },
+  {
+    "id": 78,
+    "values": {
+      "opinion_id": "question_78",
+      "description": "Is there a need for stricter regulations on the chemical industry?",
+      "is_active": true
+    }
+  },
+  {
+    "id": 79,
+    "values": {
+      "opinion_id": "question_79",
+      "description": "Should there be a ban on the use of animals in educational experiments?",
+      "is_active": true
+    }
+  },
+  {
+    "id": 80,
+    "values": {
+      "opinion_id": "question_80",
+      "description": "Is there a need for stricter regulations on the entertainment industry?",
+      "is_active": true
+    }
+  },
+  {
+    "id": 81,
+    "values": {
+      "opinion_id": "question_81",
+      "description": "Should there be a ban on the use of animals in theme parks?",
+      "is_active": true
+    }
+  },
+  {
+    "id": 82,
+    "values": {
+      "opinion_id": "question_82",
+      "description": "Is there a need for stricter regulations on the zoo industry?",
+      "is_active": true
+    }
+  },
+  {
+    "id": 83,
+    "values": {
+      "opinion_id": "question_83",
+      "description": "Should there be a ban on the use of animals in aquariums?",
+      "is_active": true
+    }
+  },
+  {
+    "id": 84,
+    "values": {
+      "opinion_id": "question_84",
+      "description": "Is there a need for stricter regulations on the gambling industry?",
+      "is_active": true
+    }
+  },
+  {
+    "id": 85,
+    "values": {
+      "opinion_id": "question_85",
+      "description": "Should there be a ban on the use of animals in dog racing?",
+      "is_active": true
+    }
+  },
+  {
+    "id": 86,
+    "values": {
+      "opinion_id": "question_86",
+      "description": "Is there a need for stricter regulations on the horse racing industry?",
+      "is_active": true
+    }
+  },
+  {
+    "id": 87,
+    "values": {
+      "opinion_id": "question_87",
+      "description": "Should there be a ban on the use of animals in bullfighting?",
+      "is_active": true
+    }
+  },
+  {
+    "id": 88,
+    "values": {
+      "opinion_id": "question_88",
+      "description": "Is there a need for stricter regulations on the rodeo industry?",
+      "is_active": true
+    }
+  },
+  {
+    "id": 89,
+    "values": {
+      "opinion_id": "question_89",
+      "description": "Should there be a ban on the use of animals in hunting?",
+      "is_active": true
+    }
+  },
+  {
+    "id": 90,
+    "values": {
+      "opinion_id": "question_90",
+      "description": "Is there a need for stricter regulations on the fur industry?",
+      "is_active": true
+    }
+  },
+  {
+    "id": 91,
+    "values": {
+      "opinion_id": "question_91",
+      "description": "Should there be a ban on the use of animals in fur farming?",
+      "is_active": true
+    }
+  },
+  {
+    "id": 92,
+    "values": {
+      "opinion_id": "question_92",
+      "description": "Is there a need for stricter regulations on the pet industry?",
+      "is_active": true
+    }
+  },
+  {
+    "id": 93,
+    "values": {
+      "opinion_id": "question_93",
+      "description": "Should there be a ban on the use of animals in pet breeding?",
+      "is_active": true
+    }
+  },
+  {
+    "id": 94,
+    "values": {
+      "opinion_id": "question_94",
+      "description": "Is there a need for stricter regulations on the fishing industry?",
+      "is_active": true
+    }
+  },
+  {
+    "id": 95,
+    "values": {
+      "opinion_id": "question_95",
+      "description": "Should there be a ban on the use of animals in fishing?",
+      "is_active": true
+    }
+  },
+  {
+    "id": 96,
+    "values": {
+      "opinion_id": "question_96",
+      "description": "Is there a need for stricter regulations on the dairy industry?",
+      "is_active": true
+    }
+  },
+  {
+    "id": 97,
+    "values": {
+      "opinion_id": "question_97",
+      "description": "Should there be a ban on the use of animals in dairy farming?",
+      "is_active": true
+    }
+  },
+  {
+    "id": 98,
+    "values": {
+      "opinion_id": "question_98",
+      "description": "Is there a need for stricter regulations on the poultry industry?",
+      "is_active": true
+    }
+  },
+  {
+    "id": 99,
+    "values": {
+      "opinion_id": "question_99",
+      "description": "Should there be a ban on the use of animals in poultry farming?",
+      "is_active": true
+    }
+  },
+  {
+    "id": 100,
+    "values": {
+      "opinion_id": "question_100",
+      "description": "Is there a need for stricter regulations on the beef industry?",
+      "is_active": true
+    }
+  }
+]
