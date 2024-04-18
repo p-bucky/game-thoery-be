@@ -9,7 +9,6 @@ const { sessionHandler } = require("./session-handler");
 
 const PORT = process.env.PORT || 3000;
 
-console.log(process.env);
 (async () => {
   const app = express();
 
